@@ -20,6 +20,7 @@
 
 <table border="1" cellpadding="8">
     <tr>
+        <th>Image</th>
         <th>Name</th>
         <th>Description</th>
         <th>Price (RM)</th>
@@ -31,12 +32,25 @@
             for (Product p : products) {
     %>
     <tr>
+        <td>
+            <img
+                    src="<%= request.getContextPath() %>/images/<%= p.getImage() %>">
+        width= "120"
+            onerror="this.src='<%= request.getContextPath() %>/images/default.jpg'">
+        </td>
+
         <td><%= p.getName() %></td>
         <td><%= p.getDescription() %></td>
         <td><%= p.getPrice() %></td>
     </tr>
     <%
             }
+        }else {
+    %>
+    <tr>
+        <td colspan="4">No products available.</td>
+    </tr>
+    <%
         }
     %>
 

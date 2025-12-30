@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="HR" uuid="34fa9a0a-6e2f-4d1c-99c2-d9777f68363f">
+    <data-source source="LOCAL" name="HR" uuid="7ffc5b3a-c9d2-41ac-b43c-1179074cbf32">
       <driver-ref>oracle.19</driver-ref>
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>
