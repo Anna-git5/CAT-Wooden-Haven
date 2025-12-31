@@ -23,25 +23,14 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-        System.out.println("=== PRODUCT SERVLET CALLED ===");
+        //System.out.println("=== PRODUCT SERVLET CALLED ===");
 
         List<Product> productList = new ArrayList<>();
 
-        try (Connection conn = DBConnection.getConnection()) {
+        String sql = "SELECT PRODUCT_ID, NAME, DESCRIPTION, PRICE, STOCK, IMAGE_MAIN FROM PRODUCTS";
 
-            // DEBUG: confirm database connection
-            System.out.println("Connected to DB: " + conn.getMetaData().getURL());
-
-            // DEBUG: check product count
-            String countSql = "SELECT COUNT(*) FROM PRODUCTS";
-            PreparedStatement countPs = conn.prepareStatement(countSql);
-            ResultSet countRs = countPs.executeQuery();
-            if (countRs.next()) {
-                System.out.println("DB COUNT = " + countRs.getInt(1));
-            }
-
-            // Actual query
-            String sql = "SELECT PRODUCT_ID, NAME, DESCRIPTION, PRICE FROM PRODUCTS";
+        try (Connection conn = DBConnection.getConnection())
+        {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -51,7 +40,8 @@ public class ProductServlet extends HttpServlet {
                 p.setName(rs.getString("NAME"));
                 p.setDescription(rs.getString("DESCRIPTION"));
                 p.setPrice(rs.getDouble("PRICE"));
-                p.setImage(rs.getString("IMAGE"));
+                p.setStock(rs.getInt("STOCK"));
+                p.setImageMain(rs.getString("IMAGE_MAIN"));
 
                 productList.add(p);
             }
@@ -59,8 +49,6 @@ public class ProductServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        System.out.println("Product list size = " + productList.size());
 
         request.setAttribute("products", productList);
         request.getRequestDispatcher("/products.jsp")

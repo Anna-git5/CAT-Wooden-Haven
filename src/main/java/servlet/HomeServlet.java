@@ -20,7 +20,7 @@ public class HomeServlet extends HttpServlet {
 
         List<Product> featuredProducts = new ArrayList<>();
 
-        String sql = "SELECT PRODUCT_ID, NAME, DESCRIPTION, PRICE, IMAGE " +
+        String sql = "SELECT PRODUCT_ID, NAME, DESCRIPTION, PRICE, IMAGE_MAIN " +
                 "FROM PRODUCTS WHERE ROWNUM <= 4";
 
         try (Connection conn = DBConnection.getConnection();
@@ -33,7 +33,7 @@ public class HomeServlet extends HttpServlet {
                 p.setName(rs.getString("NAME"));
                 p.setDescription(rs.getString("DESCRIPTION"));
                 p.setPrice(rs.getDouble("PRICE"));
-                p.setImage(rs.getString("IMAGE"));
+                p.setImageMain(rs.getString("IMAGE_MAIN"));
 
                 featuredProducts.add(p);
             }

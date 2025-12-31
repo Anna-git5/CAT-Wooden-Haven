@@ -2,41 +2,80 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Product" %>
 
+<!DOCTYPE html>
 <html>
 <head>
     <title>WoodenHaven</title>
 
     <style>
         body {
-            font-family: Arial;
-            font-size: 15px;
+            font-family: Arial, sans-serif;
             margin: 0;
             background: #f8f8f8;
-            font-weight: bold;
         }
-        .header {
+
+        /* ===== TOP HEADER ===== */
+        .top-header {
             background: #3e2d24;
             color: white;
-            /*padding: 5px;*/
-            height: 50px;
-            text-align: center;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            flex: 1;
+            margin: 0 30px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+            font-size: 14px;
+        }
+
+        .nav-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== HERO ===== */
         .hero {
-            background: url("images/hero.jpg") center/cover no-repeat;
-            height: 100px;
+            background: url("<%= request.getContextPath() %>/images/hero.jpg") center/cover no-repeat;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 32px;
             font-weight: bold;
-            font-family: "Arial";
-        }
-        .container {
-            padding: 40px;
-            text-align: center;
         }
 
+        /* ===== CONTENT ===== */
+        .container {
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* ===== PRODUCTS GRID ===== */
         .products {
             display: flex;
             gap: 20px;
@@ -46,21 +85,48 @@
 
         .card {
             background: white;
-            padding: 20px;
+            padding: 15px;
             width: 220px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             text-align: center;
         }
-        .btn {
-            padding: 12px 25px;
+
+        .card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .card h3 {
+            margin: 10px 0 5px;
+            font-size: 16px;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .price {
+            font-weight: bold;
+            margin-top: 8px;
+            color: #3e2d24;
+        }
+
+        .view-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
             background: #3e2d24;
             color: white;
             text-decoration: none;
-            margin: 10px;
-            display: inline-block;
+            border-radius: 4px;
+            font-size: 13px;
         }
-        .btn:hover {
+
+        .view-btn:hover {
             background: #563e30;
         }
     </style>
@@ -68,47 +134,30 @@
 
 <body>
 
-<div class="header">
-    <h1>WoodenHaven</h1>
+<!-- ===== HEADER ===== -->
+<div class="top-header">
+    <div class="logo">WoodenHaven</div>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Search for products...">
+    </div>
+
+    <div class="nav-links">
+        <a href="login.jsp">Login</a>
+        <a href="register.jsp">Register</a>
+        <a href="#">🛒 Cart</a>
+    </div>
 </div>
 
+<!-- ===== HERO ===== -->
 <div class="hero">
     Timeless Craft. Modern Comfort.
 </div>
 
+<!-- ===== CONTENT ===== -->
 <div class="container">
 
-    <%
-        String username = (String) session.getAttribute("username");
-        String role = (String) session.getAttribute("role");
-    %>
-
-    <% if (username == null) { %>
-
-    <h2>Welcome to WoodenHaven</h2>
-    <p>Discover premium handcrafted wooden furniture.</p>
-
-    <a href="login.jsp" class="btn">Login</a>
-    <a href="register.jsp" class="btn">Register</a>
-    <a href="products" class="btn">View Products</a>
-
-    <% } else { %>
-
-    <h2>Welcome, <%= username %> 👋</h2>
-
-    <% if ("ADMIN".equals(role)) { %>
-    <a href="<%= request.getContextPath() %>/admin/add-product" class="btn">
-        Admin Panel
-    </a>
-    <% } %>
-
-    <a href="products" class="btn">Browse Products</a>
-    <a href="logout" class="btn">Logout</a>
-
-    <% } %>
-
-    <hr>
-    <h2 style="text-align: center">Featured Products</h2>
+    <h2>Top Products </h2>
 
     <div class="products">
         <%
@@ -118,27 +167,30 @@
             if (featuredProducts != null && !featuredProducts.isEmpty()) {
                 for (Product p : featuredProducts) {
         %>
-            <div class="card">
-                <%
-                    if (p.getImage() != null) {
-                %>
-                <img src="<%= request.getContextPath() %>/images/<%= p.getImage() %>"
-                     width="180" height="120" style="object-fit:cover;">
-                <%
-                    }
-                %>
-                <h3><%= p.getName() %></h3>
-                <p><%= p.getDescription() %></p>
-                <b>RM <%= p.getPrice() %></b>
-            </div>
-<%
-        }
-    } else {
-%>
-    <p>No featured products available.</p>
-<%
-    }
-%>
+        <div class="card">
+
+            <img src="<%= request.getContextPath() %>/images/<%= p.getImageMain() %>"
+                 onerror="this.src='<%= request.getContextPath() %>/images/default.jpg'">
+
+            <h3><%= p.getName() %></h3>
+            <p><%= p.getDescription() %></p>
+
+            <div class="price">RM <%= p.getPrice() %></div>
+
+            <a href="product?id=<%= p.getProductId() %>" class="view-btn">
+                View Product
+            </a>
+        </div>
+        <%
+            }
+        } else {
+        %>
+        <p style="text-align:center;">No featured products available.</p>
+        <%
+            }
+        %>
+    </div>
+
 </div>
 
 </body>

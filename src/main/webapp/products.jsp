@@ -24,31 +24,38 @@
         <th>Name</th>
         <th>Description</th>
         <th>Price (RM)</th>
+        <th>Stock</th>
+        <th>Action</th>
     </tr>
 
     <%
         List<Product> products = (List<Product>) request.getAttribute("products");
-        if (products != null) {
+        if (products != null && !products.isEmpty()) {
             for (Product p : products) {
     %>
     <tr>
         <td>
-            <img
-                    src="<%= request.getContextPath() %>/images/<%= p.getImage() %>">
+            <img src="<%= request.getContextPath() %>/images/<%= p.getImageMain() %>"
         width= "120"
-            onerror="this.src='<%= request.getContextPath() %>/images/default.jpg'">
+                 onerror="this.src='<%= request.getContextPath() %>/images/default.jpg'">
         </td>
 
         <td><%= p.getName() %></td>
         <td><%= p.getDescription() %></td>
         <td><%= p.getPrice() %></td>
+        <td><%= p.getStock() %></td>
+        <td>
+            <a href="product?id=<%= p.getProductId() %>">View</a>
+        </td>
     </tr>
     <%
             }
         }else {
     %>
     <tr>
-        <td colspan="4">No products available.</td>
+        <td colspan="6"> style="test-allign:center;"
+        No Products Available</td>
+
     </tr>
     <%
         }
