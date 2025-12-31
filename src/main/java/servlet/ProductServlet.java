@@ -25,21 +25,27 @@ public class ProductServlet extends HttpServlet {
 
         List<Product> productList = new ArrayList<>();
         String categoryParam = request.getParameter("category");
+        String searchParam = request.getParameter("search");
 
-        String sql = "SELECT * FROM PRODUCTS";
-        boolean hasCategory = false;
+        StringBuilder sql = new StringBuilder("SELECT * FROM PRODUCTS WHERE 1=1");
+        List<Object> params = new ArrayList<>();
 
         if (categoryParam != null && !categoryParam.isEmpty()) {
-            sql += " WHERE CATEGORY_ID = ?";
-            hasCategory = true;
+            sql.append(" AND CATEGORY_ID = ?");
+            params.add(Integer.parseInt(categoryParam));
+        }
+        if (searchParam != null && !searchParam.trim().isEmpty()) {
+            sql.append(" AND (LOWER(NAME) LIKE ? OR LOWER(DESCRIPTION) LIKE ?)");
+            String keyword = "%" + searchParam.toLowerCase() + "%";
+            params.add(keyword);
+            params.add(keyword);
         }
             // String sql = "SELECT PRODUCT_ID, NAME, DESCRIPTION, PRICE, STOCK, IMAGE_MAIN FROM PRODUCTS";
-
         try (Connection conn = DBConnection.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)
-        ){
-            if (hasCategory) {
-                ps.setInt(1, Integer.parseInt(categoryParam));
+            PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
             }
 
             ResultSet rs = ps.executeQuery();
@@ -63,6 +69,7 @@ public class ProductServlet extends HttpServlet {
 
         request.setAttribute("products", productList);
         request.setAttribute("selectedCategory", categoryParam);
+        request.setAttribute("search", searchParam);
 
         request.getRequestDispatcher("/products.jsp")
                 .forward(request, response);

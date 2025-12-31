@@ -200,7 +200,12 @@
     <div class="logo">WoodenHaven</div>
 
     <div class="search-bar">
-        <input type="text" placeholder="Search for products...">
+        <form action="<%= request.getContextPath() %>/products" method="get">
+            <input type="text"
+                   name="search"
+                   placeholder="Search for products..."
+                   value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">
+        </form>
     </div>
 
     <div class="nav-links">
