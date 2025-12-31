@@ -65,7 +65,68 @@
             font-weight: bold;
         }
 
-        /* ===== CONTENT ===== */
+        /* ===== CATEGORIES ===== */
+        .categories {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        .categories h2 {
+            margin-bottom: 35px;
+            font-size: 26px;
+        }
+
+        .category-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /*Category card*/
+        .category-card {
+            background: white;
+            width: 220px;
+            height: 260px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+            height:220px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 26px rgba(0,0,0,0.14);
+        }
+
+        .category-card img {
+            width: 130px;
+            height: 90px;
+            object-fit:cover;
+            margin-bottom: 10px;
+            border-radius: 18px;
+        }
+
+        .category-card p {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        /* ===== PRODUCTS ===== */
         .container {
             padding: 40px;
         }
@@ -154,9 +215,35 @@
     Timeless Craft. Modern Comfort.
 </div>
 
-<!-- ===== CONTENT ===== -->
-<div class="container">
+<!-- ===== CATEGORIES ===== -->
+<div class="categories">
+    <h2>Categories</h2>
 
+    <div class="category-grid">
+        <div class="category-card">
+            <img src="<%= request.getContextPath() %>/images/category-1.jpg">
+            <p>Living Room</p>
+        </div>
+
+        <div class="category-card">
+            <img src="<%= request.getContextPath() %>/images/category-2.jpg">
+            <p>Kitchen</p>
+        </div>
+
+        <div class="category-card">
+            <img src="<%= request.getContextPath() %>/images/category-3.jpg">
+            <p>Bedroom</p>
+        </div>
+
+        <div class="category-card">
+            <img src="<%= request.getContextPath() %>/images/category-4.jpg">
+            <p>Home Decor & Handicrafts</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===== FEATURED PRODUCT ===== -->
+<div class="container">
     <h2>Top Products </h2>
 
     <div class="products">
