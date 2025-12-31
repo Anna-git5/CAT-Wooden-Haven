@@ -221,23 +221,31 @@
 
     <div class="category-grid">
         <div class="category-card">
+            <a href="<%= request.getContextPath() %>/products?category=1">
             <img src="<%= request.getContextPath() %>/images/category-1.jpg">
             <p>Living Room</p>
+            </a>
         </div>
 
         <div class="category-card">
+            <a href="<%= request.getContextPath() %>/products?category=2">
             <img src="<%= request.getContextPath() %>/images/category-2.jpg">
             <p>Kitchen</p>
+            </a>
         </div>
 
         <div class="category-card">
+            <a href="<%= request.getContextPath() %>/products?category=3">
             <img src="<%= request.getContextPath() %>/images/category-3.jpg">
             <p>Bedroom</p>
+            </a>
         </div>
 
         <div class="category-card">
+            <a href="<%= request.getContextPath() %>/products?category=4">
             <img src="<%= request.getContextPath() %>/images/category-4.jpg">
             <p>Home Decor & Handicrafts</p>
+            </a>
         </div>
     </div>
 </div>
