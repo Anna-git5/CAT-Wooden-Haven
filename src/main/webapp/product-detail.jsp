@@ -104,15 +104,17 @@
 
     <p><%= p.getDescription() %></p>
 
-<form action="cart" method="<%= request.getContextPath() %>/cart" method="post">
-    <input type="hidden" name="productId" value="<%= p.getProductId() %>">
-    Quantity:
-    <input type="number" name="qty" value="1" min="1" max="<%= p.getStock() %>">
+        <form action="<%= request.getContextPath() %>/cart" method="post">
+            <input type="hidden" name="productId" value="<%= p.getProductId() %>">
 
-    <br><br>
+            Quantity:
+            <input type="number" name="qty" value="1" min="1" max="<%= p.getStock() %>">
 
-    <button type="submit" class="btn">Add to Cart</button>
-    </form>
+            <br><br>
+
+            <button type="submit" class="btn">Add to Cart</button>
+        </form>
+
 
         <br>
         <a href="<%= request.getContextPath() %>/products" class="btn">

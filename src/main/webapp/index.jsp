@@ -211,7 +211,7 @@
     <div class="nav-links">
         <a href="login.jsp">Login</a>
         <a href="register.jsp">Register</a>
-        <a href="#">🛒 Cart</a>
+        <a href="<%= request.getContextPath() %>/cart">🛒 Cart</a>
     </div>
 </div>
 
