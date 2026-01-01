@@ -209,10 +209,37 @@
     </div>
 
     <div class="nav-links">
-        <a href="login.jsp">Login</a>
-        <a href="register.jsp">Register</a>
-        <a href="<%= request.getContextPath() %>/cart">🛒 Cart</a>
+
+        <%
+            String username = (String) session.getAttribute("username");
+            if (username == null) {
+        %>
+        <!-- USER NOT LOGIN -->
+        <a href="<%= request.getContextPath() %>/login.jsp">Login</a>
+        <a href="<%= request.getContextPath() %>/register.jsp">Register</a>
+
+        <%
+        } else {
+        %>
+        <!-- USER LOGGED IN -->
+        <span style="margin-right:15px;">
+            Hi, <strong><%= username %></strong>
+        </span>
+
+        <a href="<%= request.getContextPath() %>/cart">
+            🛒 Cart
+        </a>
+
+        <a href="<%= request.getContextPath() %>/logout"
+           style="margin-left:15px;">
+            Logout
+        </a>
+        <%
+            }
+        %>
+
     </div>
+
 </div>
 
 <!-- ===== HERO ===== -->
