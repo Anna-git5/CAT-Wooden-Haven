@@ -53,18 +53,6 @@
             text-decoration: underline;
         }
 
-        /* ===== HERO ===== */
-        .hero {
-            background: url("<%= request.getContextPath() %>/images/hero.jpg") center/cover no-repeat;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 32px;
-            font-weight: bold;
-        }
-
         /* ===== CATEGORIES ===== */
         .categories {
             max-width: 1100px;
@@ -79,6 +67,8 @@
         .categories h2 {
             margin-bottom: 35px;
             font-size: 26px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
         }
 
         .category-grid {
@@ -190,6 +180,57 @@
         .view-btn:hover {
             background: #563e30;
         }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .hero-video {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+
+        .hero-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.35);
+            color: white;
+            text-align: center;
+        }
+
+        .video-overlay h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .video-overlay p {
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+
     </style>
 </head>
 
@@ -197,7 +238,11 @@
 
 <!-- ===== HEADER ===== -->
 <div class="top-header">
-    <div class="logo">WoodenHaven</div>
+    <div class="logo">
+        <img src="<%= request.getContextPath() %>/images/logo.png" alt="WoodenHaven Logo">
+        <span>WoodenHaven</span>
+    </div>
+
 
     <div class="search-bar">
         <form action="<%= request.getContextPath() %>/products" method="get">
@@ -223,7 +268,7 @@
         %>
         <!-- USER LOGGED IN -->
         <span style="margin-right:15px;">
-            Hi, <strong><%= username %></strong>
+            👤 <strong><%= username %></strong>
         </span>
 
         <a href="<%= request.getContextPath() %>/cart">
@@ -242,10 +287,19 @@
 
 </div>
 
-<!-- ===== HERO ===== -->
-<div class="hero">
-    Timeless Craft. Modern Comfort.
+<!-- ===== HERO VIDEO ===== -->
+<div class="hero-video">
+    <video autoplay muted loop playsinline>
+        <source src="<%= request.getContextPath() %>/videos/hero.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="video-overlay">
+        <h2>Handcrafted Wooden Living</h2>
+        <p>Natural • Timeless • Modern</p>
+    </div>
 </div>
+
 
 <!-- ===== CATEGORIES ===== -->
 <div class="categories">
