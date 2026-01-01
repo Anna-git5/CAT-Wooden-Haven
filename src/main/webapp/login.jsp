@@ -23,10 +23,18 @@
 <p style="color:red">
     <%
         if (request.getParameter("error") != null) {
-            out.println("Invalid username or password");
+            System.out.println("Invalid username or password");
         }
     %>
 </p>
+
+<p>
+    Don’t have an account?
+    <a href="<%= request.getContextPath() %>/register.jsp">
+        Register here
+    </a>
+</p>
+
 
 </body>
 </html>

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import java.io.IOException;
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +25,13 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
+
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
+
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 
         if (cart == null) {
@@ -83,13 +91,20 @@ public class CartServlet extends HttpServlet {
         }
 
         session.setAttribute("cart", cart);
-
         response.sendRedirect(request.getContextPath() + "/cart.jsp");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+
+        if (username == null) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
 
         request.getRequestDispatcher("/cart.jsp")
                 .forward(request, response);

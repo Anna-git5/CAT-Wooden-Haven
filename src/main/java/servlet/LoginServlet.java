@@ -32,7 +32,15 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("username", rs.getString("username"));
                 session.setAttribute("role", rs.getString("role"));
 
-                response.sendRedirect("index.jsp");
+                String redirect =
+                        (String) session.getAttribute("redirectAfterLogin");
+
+                if (redirect != null) {
+                    session.removeAttribute("redirectAfterLogin");
+                    response.sendRedirect(redirect);
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/home");
+                }
             } else {
                 response.sendRedirect("login.jsp?error=true");
             }
@@ -40,5 +48,10 @@ public class LoginServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        response.sendRedirect("login.jsp");
     }
 }
