@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @WebServlet("/cart")
@@ -29,9 +30,24 @@ public class CartServlet extends HttpServlet {
             cart = new ArrayList<>();
         }
 
+        String action = request.getParameter("action");
         int productId = Integer.parseInt(request.getParameter("productId"));
-        int qty = Integer.parseInt(request.getParameter("qty"));
 
+        if ("remove".equals(action)) {
+            Iterator<CartItem> iterator = cart.iterator();
+            while (iterator.hasNext()) {
+                CartItem item = iterator.next();
+                if (item.getProduct().getProductId() == productId) {
+                    iterator.remove();
+                    break;
+                }
+            }
+            session.setAttribute("cart", cart);
+            response.sendRedirect(request.getContextPath() + "/cart.jsp");
+            return;
+        }
+
+        int qty = Integer.parseInt(request.getParameter("qty"));
         Product product = null;
 
         try (Connection conn = DBConnection.getConnection();
@@ -68,7 +84,7 @@ public class CartServlet extends HttpServlet {
 
         session.setAttribute("cart", cart);
 
-        response.sendRedirect(request.getContextPath() + "/cart");
+        response.sendRedirect(request.getContextPath() + "/cart.jsp");
     }
 
     @Override
