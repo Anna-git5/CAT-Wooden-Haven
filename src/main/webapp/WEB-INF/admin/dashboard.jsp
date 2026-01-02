@@ -100,7 +100,7 @@
 <div class="container">
     <h2>Admin Dashboard</h2>
     <ul>
-       <li><a  href="<%= request.getContextPath() %>/admin/stock">Update Stock</a></li>
+        <li><a  href="<%= request.getContextPath() %>/admin/stock">Update Stock</a></li>
         <li><a href="<%= request.getContextPath() %>/admin/add-product">Add New Product</a></li>
         <li><a href="<%= request.getContextPath() %>/admin/edit-product">Edit Product</a></li>
         <li><a href="<%= request.getContextPath() %>/admin/delete-product">Delete Product</a></li>

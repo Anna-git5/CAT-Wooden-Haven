@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 
 
 
-@WebServlet("/admin/add-product")
+@WebServlet("/admin/products")
 public class AdminProductServlet extends HttpServlet {
 
     @Override
