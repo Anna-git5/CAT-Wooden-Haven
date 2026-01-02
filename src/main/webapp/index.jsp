@@ -69,6 +69,7 @@
             font-size: 26px;
             font-family: Arial, sans-serif;
             font-weight: bold;
+            color:#3e2d24;
         }
 
         .category-grid {
@@ -237,10 +238,16 @@
 <body>
 
 <!-- ===== HEADER ===== -->
+
+<%
+    String username = (String) session.getAttribute("username");
+    String role = (String) session.getAttribute("role");
+%>
+
 <div class="top-header">
     <div class="logo">
-        <img src="<%= request.getContextPath() %>/images/logo.png" alt="WoodenHaven Logo">
-        <span>WoodenHaven</span>
+        <img src="<%= request.getContextPath() %>/images/logo.png" style="height:40px;">
+        <span style="margin-left:10px;">WoodenHaven</span>
     </div>
 
 
@@ -255,34 +262,25 @@
 
     <div class="nav-links">
 
-        <%
-            String username = (String) session.getAttribute("username");
-            if (username == null) {
-        %>
-        <!-- USER NOT LOGIN -->
+        <% if (username == null) { %>
+        <!-- NOT LOGGED IN -->
         <a href="<%= request.getContextPath() %>/login.jsp">Login</a>
         <a href="<%= request.getContextPath() %>/register.jsp">Register</a>
 
-        <%
-        } else {
-        %>
-        <!-- USER LOGGED IN -->
-        <span style="margin-right:15px;">
-            👤 <strong><%= username %></strong>
-        </span>
+        <% } else { %>
+        <!-- LOGGED IN -->
+        <span style="margin-right:15px;">👤 <%= username %></span>
 
-        <a href="<%= request.getContextPath() %>/cart">
-            🛒 Cart
-        </a>
+        <% if ("ADMIN".equals(role)) { %>
+        <!-- ADMIN -->
+        <a href="<%= request.getContextPath() %>/admin/dashboard"> 🗘 Update</a>
+        <% } else { %>
+        <!-- NORMAL USER -->
+        <a href="<%= request.getContextPath() %>/cart">🛒 Cart</a>
+        <% } %>
 
-        <a href="<%= request.getContextPath() %>/logout"
-           style="margin-left:15px;">
-            Logout
-        </a>
-        <%
-            }
-        %>
-
+        <a href="<%= request.getContextPath() %>/logout">Logout</a>
+        <% } %>
     </div>
 
 </div>
