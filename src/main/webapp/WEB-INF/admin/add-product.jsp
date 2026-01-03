@@ -44,6 +44,7 @@
             color: #2e7d32;
             font-size: 14px;
             border-radius: 4px;
+            transition: opacity 0.5s ease;
         }
 
         .error-message {
@@ -55,6 +56,7 @@
             color: #d32f2f;
             font-size: 14px;
             border-radius: 4px;
+            transition: opacity 0.5s ease;
         }
 
         label {
@@ -172,6 +174,16 @@
         <button type="submit">Add Product</button>
     </form>
 </div>
+
+<script>
+    setTimeout(() => {
+        const msg = document.querySelector('.success-message, .error-message');
+        if (msg) {
+            msg.style.opacity = '0';
+            setTimeout(() => msg.style.display = 'none', 500);
+        }
+    }, 3000);
+</script>
 
 </body>
 </html>
