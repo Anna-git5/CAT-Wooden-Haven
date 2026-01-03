@@ -35,6 +35,17 @@
             text-align: center;
         }
 
+        .success-message {
+            margin-top: 15px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background-color: #e6f4ea;
+            border-left: 5px solid #2e7d32;
+            color: #2e7d32;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
         label {
             font-weight: bold;
             color: #3e2d24;
@@ -81,7 +92,26 @@
 <body>
 
 <div class="form-container">
+
+    <!-- Back to dashboard -->
+    <a href="<%= request.getContextPath() %>/home" style=" position: absolute; top: 20px; left: 20px; text-decoration: none; font-weight: bold; color: #3e2d24; font-size: 14px; background: none;">
+        ◀ Back to Homepage
+    </a>
+
     <h2>Add New Product</h2>
+
+    <%
+        String successMessage = (String) session.getAttribute("successMessage");
+        if (successMessage != null) {
+    %>
+        <div class="success-message">
+            <%= successMessage %>
+        </div>
+    <%
+        session.removeAttribute("successMessage");
+
+        }
+    %>
 
     <form method="post" action="<%= request.getContextPath() %>/admin/add-product" enctype="multipart/form-data">
 

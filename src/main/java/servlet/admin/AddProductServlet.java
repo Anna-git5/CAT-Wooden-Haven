@@ -65,6 +65,7 @@ public class AddProductServlet extends HttpServlet {
         AddProductDAO.addProduct(categoryId, name, description, price, stock, mainImageName, secondImageName);
 
         // 7. Redirect //
-        response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+        request.getSession().setAttribute("successMessage", "✅ Product added successfully!");
+        response.sendRedirect(request.getContextPath() + "/admin/add-product");
     }
 }
