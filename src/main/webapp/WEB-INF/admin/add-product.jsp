@@ -46,6 +46,17 @@
             border-radius: 4px;
         }
 
+        .error-message {
+            margin-top: 15px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background-color: #fdecea;
+            border-left: 5px solid #d32f2f;
+            color: #d32f2f;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
         label {
             font-weight: bold;
             color: #3e2d24;
@@ -110,6 +121,18 @@
     <%
         session.removeAttribute("successMessage");
 
+        }
+    %>
+
+    <%
+        String errorMessage = (String) session.getAttribute("errorMessage");
+        if (errorMessage != null) {
+    %>
+        <div class="error-message">
+            <%= errorMessage%>
+        </div>
+    <%
+            session.removeAttribute("errorMessage");
         }
     %>
 

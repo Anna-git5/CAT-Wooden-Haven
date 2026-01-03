@@ -35,6 +35,16 @@ public class AddProductServlet extends HttpServlet {
         double price = Double.parseDouble(request.getParameter("price"));
         int stock = Integer.parseInt(request.getParameter("stock"));
 
+        // 1.5 Check duplicate product //
+        if (AddProductDAO.productExists(name, categoryId)) {
+            request.getSession().setAttribute(
+                    "errorMessage",
+                    "❌ Product already exists in this category."
+            );
+            response.sendRedirect(request.getContextPath() + "/admin/add-product");
+            return;
+        }
+
         // 2. Acquire images //
         Part imageMainPart = request.getPart("imageMain");
         Part imageSecondPart = request.getPart("imageSecond");
