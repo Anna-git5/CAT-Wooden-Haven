@@ -21,7 +21,7 @@
         .login-container {
             width: 380px;
             margin: 100px auto;
-            background:#ffffff;
+            background: #ffffff;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
@@ -46,6 +46,7 @@
             border-radius: 4px;
             border: 1px solid #ccc;
             font-size: 14px;
+            box-sizing: border-box;
         }
 
         button {
@@ -57,6 +58,7 @@
             border-radius: 4px;
             font-size: 15px;
             cursor: pointer;
+            box-sizing: border-box
         }
         button:hover {
             background-color: #5a4032;

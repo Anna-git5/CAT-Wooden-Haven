@@ -86,12 +86,11 @@
 
     <!-- Success message -->
     <% if ("true".equals(request.getParameter("success"))) { %>
-    <div class="msg">Stock updated successfully!</div>
+        <div class="msg">Stock updated successfully!</div>
     <% } %>
 
     <table>
         <tr>
-            <th>ID</th>
             <th>Product</th>
             <th>Current Stock</th>
             <th>New Stock</th>
@@ -104,32 +103,33 @@
             for (Product p : products) {
         %>
         <tr>
-            <td colspan="5">
-            <form action="<%= request.getContextPath() %>/admin/stock" method="post"
-                  style="display:grid;
-                          grid-template-columns: 80px 1fr 140px 140px 120px;
-                          align-items:center;
-                          gap:10px;">
+            <form action="<%= request.getContextPath() %>/admin/stock" method="post">
 
-            <span><%=p.getProductId() %></span>
-            <span><%= p.getName() %></span>
-            <span><%= p.getStock() %></span>
-
-                    <input type="hidden" name="productId"
+                <!-- Hidden product ID -->
+                <input type="hidden" name="productId"
                            value="<%= p.getProductId() %>">
-                    <input type="number" name="stock"
-                           value="<%= p.getStock() %>" min="0">
 
-                <button type="submit" class ="btn" >Update</button>
+                <td><%= p.getName() %></td>
+                <td><%= p.getStock() %></td>
+                <td>
+                    <input type="number" name="stock" value="<%= p.getStock() %>" min="0" required>
+                </td>
+                <td>
+                    <button type="submit" class="btn">Update</button>
+                </td>
+
             </form>
+
         </tr>
         <% }
         } else {
         %>
+
         <tr>
-            <td colspan="5">No products found.</td>
+            <td colspan="4">No products found.</td>
         </tr>
-            <%
+
+        <%
         }
         %>
     </table>
