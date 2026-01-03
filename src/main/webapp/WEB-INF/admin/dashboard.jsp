@@ -113,6 +113,17 @@
             color: #3e2d24;
             font-size: 14px;
         }
+
+        .success-message {
+            margin-bottom: 20px;
+            padding: 12px;
+            background-color: #e6f4ea;
+            border-left: 5px solid #2e7d32;
+            color: #2e7d32;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
     </style>
 </head>
 
@@ -123,7 +134,21 @@
 </a>
 
 <div class="container">
+
     <h2>Admin Dashboard</h2>
+
+    <%
+        String successMessage = (String) session.getAttribute("successMessage");
+        if (successMessage != null) {
+    %>
+    <div class="success-message">
+        <%= successMessage %>
+    </div>
+    <%
+            session.removeAttribute("successMessage");
+        }
+    %>
+
 
     <ul>
         <li>
@@ -162,6 +187,13 @@
     function showDeleteForm() {
         document.getElementById("deleteForm").style.display = "block";
     }
+</script>
+
+<script>
+    setTimeout(() => {
+        const msg = document.querySelector('.success-message');
+        if (msg) msg.style.display = 'none';
+    }, 3000);
 </script>
 
 </body>

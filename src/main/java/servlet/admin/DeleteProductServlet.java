@@ -43,6 +43,11 @@ public class DeleteProductServlet extends HttpServlet {
         ProductDAO.deleteProduct(productId);
 
         // 5. Redirect with success message
-        response.sendRedirect(request.getContextPath() + "/admin/dashboard?deleted=true");
+        request.getSession().setAttribute(
+                "successMessage",
+                "✅ Product has been deleted successfully."
+        );
+
+        response.sendRedirect(request.getContextPath() + "/admin/dashboard");
     }
 }
