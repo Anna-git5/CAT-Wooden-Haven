@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WoodenHaven</title>
+    <title> WoodenHaven </title>
 
     <style>
         body {
