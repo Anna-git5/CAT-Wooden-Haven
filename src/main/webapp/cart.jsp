@@ -39,65 +39,76 @@
 <body>
 
 <div class="container">
+
+    <a href="<%= request.getContextPath() %>/home" style=" position: absolute; top: 20px; left: 20px; text-decoration: none; font-weight: bold; color: #3e2d24; font-size: 14px; background: none;">
+        ◀ Back to Homepage
+    </a>
+
     <h2>Your Cart</h2>
 
     <%
-        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        List<CartItem> cart = (List<CartItem>) request.getAttribute("cart");
         double total = 0;
     %>
 
     <% if (cart == null || cart.isEmpty()) { %>
-    <p>Your cart is empty.</p>
+
+        <div class="empty">
+            <p>Your cart is empty.</p>
+        </div>
+
     <% } else { %>
 
-    <table>
-        <tr>
-            <th>Image</th>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Subtotal</th>
-            <th>Action</th>
-        </tr>
+        <table>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+                <th>Action</th>
+            </tr>
 
-        <% for (CartItem item : cart) {
-            total += item.getTotalPrice();
-        %>
-        <tr>
-            <td>
-                <img src="<%= request.getContextPath() %>/images/<%= item.getProduct().getImageMain() %>">
-            </td>
-            <td><%= item.getProduct().getName() %></td>
-            <td><%= item.getQuantity() %></td>
-            <td>RM <%= item.getProduct().getPrice() %></td>
-            <td>RM <%= item.getTotalPrice() %></td>
-            <td>
-                <form action="<%= request.getContextPath() %>/cart" method="post">
-                    <input type="hidden" name="action" value="remove">
-                    <input type="hidden" name="productId"
-                           value="<%= item.getProduct().getProductId() %>">
-                    <button class="btn" type="submit">Remove</button>
-                </form>
-            </td>
-        </tr>
+            <% for (CartItem item : cart) {
+                double subtotal = item.getTotalPrice();
+                total += subtotal;
+            %>
+
+            <tr>
+                <td>
+                    <img src="<%= request.getContextPath() %>/images/<%= item.getProduct().getImageMain() %>">
+                </td>
+                <td><%= item.getProduct().getName() %></td>
+                <td><%= item.getQuantity() %></td>
+                <td>RM <%= item.getProduct().getPrice() %></td>
+                <td>RM <%= subtotal %></td>
+                <td>
+                    <form action="<%= request.getContextPath() %>/cart" method="post">
+                        <input type="hidden" name="action" value="remove">
+                        <input type="hidden" name="productId" value="<%= item.getProduct().getProductId() %>">
+                        <button class="btn" type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+
+            <% } %>
+
+        </table>
+
+        <p class="total">Total: RM <%= total %></p>
+
+        <div class="actions">
+            <a class="btn" href="<%= request.getContextPath() %>/products">
+                Continue Shopping
+            </a>
+            <a class="btn" href="#">
+                Checkout
+            </a>
+        </div>
+
         <% } %>
 
-    </table>
-
-    <p class="total">Total: RM <%= total %></p>
-
-    <div class="actions">
-        <a class="btn" href="<%= request.getContextPath() %>/products">
-            Continue Shopping
-        </a>
-        <a class="btn" href="#">
-            Checkout
-        </a>
     </div>
-
-    <% } %>
-
-</div>
 
 <jsp:include page="footer.jsp" />
 

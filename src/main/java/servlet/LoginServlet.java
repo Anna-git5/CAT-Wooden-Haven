@@ -29,20 +29,11 @@ public class LoginServlet extends HttpServlet {
 
             if (rs.next()) {
                 HttpSession session = request.getSession();
+                session.setAttribute("userId", rs.getInt("user_id"));
                 session.setAttribute("username", rs.getString("username"));
                 session.setAttribute("role", rs.getString("role"));
 
-                String redirect =
-                        (String) session.getAttribute("redirectAfterLogin");
-
-                if (redirect != null) {
-                    session.removeAttribute("redirectAfterLogin");
-                    response.sendRedirect(redirect);
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/home");
-                }
-            } else {
-                response.sendRedirect("login.jsp?error=true");
+                response.sendRedirect(request.getContextPath() + "/home");
             }
 
         } catch (Exception e) {

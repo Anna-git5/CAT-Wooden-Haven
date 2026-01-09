@@ -37,6 +37,20 @@
             box-sizing: border-box;
         }
 
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #3e2d24;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
         button {
             background: #3e2d24;
             color: white;
@@ -58,6 +72,11 @@
 </head>
 
 <body>
+
+<a class="back-link" href="<%= request.getContextPath() %>/home">
+    ◀ Back to Homepage
+</a>
+
 <div class="container">
     <h2>Edit Product</h2>
 
@@ -80,9 +99,10 @@
         <form method="post">
             <input type="hidden" name="productId" value="<%= p.getProductId() %>">
             <input type="text" name="name" value="<%= p.getName() %>" required>
-            <textarea name="description" rows="4" required>
-                <%= p.getDescription() != null ? p.getDescription() : "" %>
-            </textarea>
+            <textarea name="description" rows="4" required><%=
+                p.getDescription() != null ? p.getDescription().trim() : ""
+            %></textarea>
+
             <input type="number" step="0.01" name="price" value="<%= p.getPrice() %>" required>
             <input type="number" name="stock" value="<%= p.getStock() %>" required>
             <button type="submit">Save Changes</button>
