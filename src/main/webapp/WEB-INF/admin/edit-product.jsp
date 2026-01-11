@@ -73,8 +73,8 @@
 
 <body>
 
-<a class="back-link" href="<%= request.getContextPath() %>/home">
-    ◀ Back to Homepage
+<a class="back-link" href="<%= request.getContextPath() %>/admin/dashboard">
+    ◀ Back to Dashboard
 </a>
 
 <div class="container">

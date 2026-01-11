@@ -166,20 +166,12 @@
                 Edit Product
             </a>
         </li>
+        <li>
+            <a class="dashboard-btn" href="<%= request.getContextPath() %>/admin/delete-product">
+                Delete Product
+            </a>
+        </li>
     </ul>
-
-    <!-- DELETE PRODUCT BUTTON -->
-    <button class="dashboard-btn" type="button" onclick="showDeleteForm()">
-        Delete Product
-    </button>
-
-    <!-- DELETE FORM -->
-    <form id="deleteForm" class="delete-form" action="<%= request.getContextPath() %>/admin/delete-product" method="post" onsubmit="return confirm('Are you sure you want to delete this product?');">
-        <input type="number" name="productId" placeholder="Enter Product ID to delete" required>
-        <button type="submit" class="confirm-btn">
-            Confirm Delete
-        </button>
-    </form>
 
 </div>
 

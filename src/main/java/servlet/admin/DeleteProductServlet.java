@@ -9,14 +9,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import javax.servlet.http.HttpSession;
+
 
 @WebServlet("/admin/delete-product")
 public class DeleteProductServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/admin/dashboard");
-    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+        if (session == null || !"ADMIN".equals(session.getAttribute("role"))) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
+        request.getRequestDispatcher("/WEB-INF/admin/delete-product.jsp")
+                .forward(request, response);
+        }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

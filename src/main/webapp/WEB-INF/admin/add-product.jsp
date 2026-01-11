@@ -107,8 +107,8 @@
 <div class="form-container">
 
     <!-- Back to dashboard -->
-    <a href="<%= request.getContextPath() %>/home" style=" position: absolute; top: 20px; left: 20px; text-decoration: none; font-weight: bold; color: #3e2d24; font-size: 14px; background: none;">
-        ◀ Back to Homepage
+    <a href="<%= request.getContextPath() %>/admin/dashboard" style=" position: absolute; top: 20px; left: 20px; text-decoration: none; font-weight: bold; color: #3e2d24; font-size: 14px; background: none;">
+        ◀ Back to Dashboard
     </a>
 
     <h2>Add New Product</h2>
