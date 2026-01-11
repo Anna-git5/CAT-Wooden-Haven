@@ -6,6 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    if (session.getAttribute("username") != null) {
+        response.sendRedirect(request.getContextPath() + "/home");
+        return;
+    }
+%>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Register - Wooden Haven</title>
@@ -33,6 +40,7 @@
             text-align: center;
             margin-bottom: 25px;
             color: #3e2d24;
+
         }
 
         .form-group {
@@ -97,7 +105,14 @@
 <div class="register-container">
     <h2>Create Account</h2>
 
-    <form action="register" method="post">
+    <form action="<%= request.getContextPath() %>/register" method="post">
+
+        <%
+            if (session.getAttribute("username") != null) {
+                response.sendRedirect(request.getContextPath() + "/home");
+                return;
+            }
+        %>
 
         <div class="form-group">
             <label>Username</label>

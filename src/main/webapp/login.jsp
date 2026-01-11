@@ -108,8 +108,14 @@
 
     <% if (request.getParameter("error") != null) { %>
         <div
-                class="error-message"> ❌ Invalid username or password.
+                class="error-message">  Invalid username or password.
         </div>
+    <% } %>
+
+    <% if (request.getParameter("exists") != null) { %>
+    <div class="error-message">
+         You already have an account. Please login.
+    </div>
     <% } %>
 
     <div class="register-link">

@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                // IF SUCCESS
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", rs.getInt("user_id"));
                 session.setAttribute("username", rs.getString("username"));
@@ -35,9 +36,14 @@ public class LoginServlet extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath() + "/home");
             }
+            else {
+                //  IF LOGIN FAILED
+                response.sendRedirect(request.getContextPath() + "/login.jsp?error=1");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/login.jsp?error=1");
         }
     }
     @Override
