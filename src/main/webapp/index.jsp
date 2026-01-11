@@ -7,7 +7,7 @@
 <head>
     <title> WoodenHaven </title>
 
-    <style>
+    <style>option C
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -115,9 +115,23 @@
             font-weight: bold;
             text-align: center;
             line-height: 1.3;
+            color: #3e2d24;
         }
 
-        /* ===== PRODUCTS ===== */
+    .category-card a {
+        text-decoration: none;
+        color: #3e2d24;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .category-card a:visited {
+        color: #3e2d24;
+    }
+
+
+    /* ===== PRODUCTS ===== */
         .container {
             padding: 40px;
         }
