@@ -24,6 +24,12 @@ public class CartServlet extends HttpServlet {
         }
 
         String action = request.getParameter("action");
+        String productIdStr = request.getParameter("productId");
+
+        if (productIdStr == null || productIdStr.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/cart");
+            return;
+        }
 
         int productId = Integer.parseInt(request.getParameter("productId"));
         if ("remove".equals(action)) {
@@ -32,7 +38,13 @@ public class CartServlet extends HttpServlet {
             return;
         }
 
-        int qty = Integer.parseInt(request.getParameter("qty"));
+        String qtyStr = request.getParameter("qty");
+        if (qtyStr == null || qtyStr.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/cart");
+            return;
+        }
+
+        int qty = Integer.parseInt(qtyStr);
 
         CartDAO.addToCart(userId, productId, qty);
 
@@ -52,7 +64,7 @@ public class CartServlet extends HttpServlet {
 
         //Load cart content from the DB
         List<CartItem> cart = CartDAO.getCartByUser(userId);
-        request.setAttribute("cart", cart);
+        session.setAttribute("cart", cart);
 
         request.getRequestDispatcher("/cart.jsp").forward(request, response);
     }

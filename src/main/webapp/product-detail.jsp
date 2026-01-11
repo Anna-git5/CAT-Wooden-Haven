@@ -19,9 +19,21 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f8f8f8;
             margin: 0;
+
+            background-image:
+                    linear-gradient(
+                            rgba(245,237,231,0.6),
+                            rgba(245,237,231,0.6)
+                    ),
+                    url("<%= request.getContextPath() %>/images/woodenHavenBG.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
+
 
         .container {
             max-width: 1000px;

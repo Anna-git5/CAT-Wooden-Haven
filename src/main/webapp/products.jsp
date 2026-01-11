@@ -18,8 +18,23 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f8f8f8;
             margin: 0;
+
+            background-image:
+                    linear-gradient(
+                            rgba(245,237,231,0.6),
+                            rgba(245,237,231,0.6)
+                    ),
+                    url("<%= request.getContextPath() %>/images/woodenHavenBG.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .products-title span::before {
+            backdrop-filter: blur(6px);
         }
 
         .container {
@@ -137,12 +152,16 @@
         }
 
         .products-page-header {
-            max-width: 1200px;
-            margin: 30px auto 10px;
-            padding: 0 20px;
-            order-bottom: 1px solid #eee;
-            padding-bottom: 35px;
+            background-color: rgba(243, 230, 214, 0.92); /* soft beige strip */
+            padding: 35px 20px 30px;
+            border-radius: 14px;
+            margin: 30px auto 40px;
+            max-width: none;
+            width: calc(100% - 80px);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+            backdrop-filter: blur(2px);
         }
+
 
         .products-top-links {
             display: flex;

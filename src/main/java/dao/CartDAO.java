@@ -94,4 +94,20 @@ public class CartDAO {
             e.printStackTrace();
         }
     }
+
+    public static void removeMultipleFromCart(int userId, int productId) {
+
+        String sql = "DELETE FROM CART WHERE user_id = ? AND product_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, productId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

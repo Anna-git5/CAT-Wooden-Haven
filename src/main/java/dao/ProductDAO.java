@@ -163,4 +163,26 @@ public class ProductDAO {
             }
         }
     }
+
+    public static void reduceStock(int productId, int quantity) {
+
+        String sql =
+                "UPDATE PRODUCTS " +
+                        "SET stock = stock - ? " +
+                        "WHERE product_id = ? AND stock >= ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, quantity);
+            ps.setInt(2, productId);
+            ps.setInt(3, quantity);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

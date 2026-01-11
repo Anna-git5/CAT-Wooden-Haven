@@ -15,7 +15,23 @@
     <title>Your Cart</title>
 
     <style>
-        body { font-family: Arial; background:#f8f8f8; margin:0 }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+
+            background-image:
+                    linear-gradient(
+                            rgba(245,237,231,0.6),
+                            rgba(245,237,231,0.6)
+                    ),
+                    url("<%= request.getContextPath() %>/images/woodenHavenBG.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
         .container { max-width:900px; margin:40px auto; background:white;
             padding:30px; border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1); }
         table { width:100%; border-collapse:collapse; }
@@ -47,7 +63,8 @@
     <h2>Your Cart</h2>
 
     <%
-        List<CartItem> cart = (List<CartItem>) request.getAttribute("cart");
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+
         double total = 0;
     %>
 
@@ -59,8 +76,11 @@
 
     <% } else { %>
 
+    <form method="get">
+
         <table>
             <tr>
+                <th><input type="checkbox" id="selectAll"></th>
                 <th>Image</th>
                 <th>Product</th>
                 <th>Qty</th>
@@ -76,24 +96,40 @@
 
             <tr>
                 <td>
+                    <input type="checkbox"
+                           name="selectedProductIds"
+                           value="<%= item.getProduct().getProductId() %>"
+                           class="item-checkbox"
+                           checked>
+                </td>
+
+                <td>
                     <img src="<%= request.getContextPath() %>/images/<%= item.getProduct().getImageMain() %>">
                 </td>
+
                 <td><%= item.getProduct().getName() %></td>
                 <td><%= item.getQuantity() %></td>
                 <td>RM <%= item.getProduct().getPrice() %></td>
                 <td>RM <%= subtotal %></td>
+
                 <td>
-                    <form action="<%= request.getContextPath() %>/cart" method="post">
-                        <input type="hidden" name="action" value="remove">
-                        <input type="hidden" name="productId" value="<%= item.getProduct().getProductId() %>">
-                        <button class="btn" type="submit">Remove</button>
-                    </form>
+                    <!-- REMOVE BUTTON -->
+                    <button type="submit"
+                            class="btn"
+                            formaction="<%= request.getContextPath() %>/cart"
+                            formmethod="post"
+                            name="action"
+                            value="remove"
+                            onclick="this.form.productId.value='<%= item.getProduct().getProductId() %>'">
+                        Remove
+                    </button>
                 </td>
             </tr>
-
             <% } %>
-
         </table>
+
+        <!-- hidden productId holder -->
+        <input type="hidden" name="productId">
 
         <p class="total">Total: RM <%= total %></p>
 
@@ -101,16 +137,28 @@
             <a class="btn" href="<%= request.getContextPath() %>/products">
                 Continue Shopping
             </a>
-            <a class="btn" href="#">
+
+            <button type="submit"
+                    class="btn"
+                    formaction="<%= request.getContextPath() %>/checkout">
                 Checkout
-            </a>
+            </button>
         </div>
 
-        <% } %>
+    </form>
 
-    </div>
+    <% } %>
+
+</div>
 
 <jsp:include page="footer.jsp" />
+
+<script>
+    document.getElementById("selectAll")?.addEventListener("change", function () {
+        document.querySelectorAll(".item-checkbox")
+            .forEach(cb => cb.checked = this.checked);
+    });
+</script>
 
 </body>
 </html>

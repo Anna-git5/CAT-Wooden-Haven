@@ -26,8 +26,8 @@
         }
         /* FOOTER */
         footer {
-            background-color: #f2e5d7;
-            color: white;
+            background-color: #f3e6d6;
+            color: #5a3e30;
             padding: 26px 0 6px;
         }
         .footer-container {
